@@ -107,6 +107,11 @@ public class S7Robot {
                 .build());
     }
 
+    public void turn(double angle) {
+        drive.turn(angle);
+        waitForDrive();
+    }
+
     //TODO: add overrides for different max velocity and accel
 
     public void followTrajectoryAndWait(Trajectory trajectory) {

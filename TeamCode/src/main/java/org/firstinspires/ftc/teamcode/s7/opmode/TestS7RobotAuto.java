@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.s7.S7Robot;
 
 @Config
-@TeleOp(name="S7Robot test")
+@TeleOp(name="S7Robot Auto test")
 public class TestS7RobotAuto extends LinearOpMode {
     public static double DISTANCE = 48;
 
