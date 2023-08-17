@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 @ExportClassToBlocks
 public class RoadRunnerBlocks extends BlocksOpModeCompanion {
 
+    //Data types
     @ExportToBlocks(
             tooltip = "Pose2d constructor"
     )
@@ -23,5 +24,18 @@ public class RoadRunnerBlocks extends BlocksOpModeCompanion {
     public static Vector2d vector2d(double x, double y) {
         return new Vector2d(x, y);
     }
+
+    //Math
+    @ExportToBlocks(
+            tooltip = "Convert degrees to radians",
+            parameterLabels = {"Degrees"}
+    )
+    public static double toRadians(double degrees) {return Math.toRadians(degrees);}
+
+    @ExportToBlocks(
+            tooltip = "Convert radians to degrees",
+            parameterLabels = {"Radians"}
+    )
+    public static double toDegrees(double radians) {return Math.toDegrees(radians);}
 
 }

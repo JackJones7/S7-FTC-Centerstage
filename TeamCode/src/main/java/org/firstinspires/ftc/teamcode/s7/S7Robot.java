@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.s7;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Line;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
@@ -114,14 +115,18 @@ public class S7Robot {
 
     //TODO: add overrides for different max velocity and accel
 
-    public void followTrajectoryAndWait(Trajectory trajectory) {
-        drive.followTrajectory(trajectory);
+    public void followTrajectorySequence(TrajectorySequence sequence) {
+        drive.followTrajectorySequence(sequence);
         waitForDrive();
     }
 
-    //Meta
     public void waitForDrive() {
         drive.waitForIdle();
+    }
+
+    public void followTrajectoryAndWait(Trajectory trajectory) {
+        drive.followTrajectory(trajectory);
+        waitForDrive();
     }
 
 }
