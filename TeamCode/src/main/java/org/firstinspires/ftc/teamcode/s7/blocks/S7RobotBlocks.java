@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 import org.firstinspires.ftc.teamcode.s7.S7Robot;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @ExportClassToBlocks
 public class S7RobotBlocks extends BlocksOpModeCompanion {
@@ -22,6 +23,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
 
     //drive
     @ExportToBlocks(
+            heading = "Set Weighted Drive Power",
             tooltip = "Set drive power based on a Pose2d (See RoadRunnerBlocks)",
             parameterLabels = {"S7Robot", "Drive Power"}
     )
@@ -142,5 +144,11 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
         robot.turn(angle);
     }
 
-    //TODO: Some system for following trajectories and trajectory sequences
+    @ExportToBlocks(
+            tooltip = "Follow a trajectory sequence",
+            parameterLabels = {"S7Robot", "Trajectory sequence"}
+    )
+    public static void followTrajectorySequence(S7Robot robot, TrajectorySequence sequence) {
+        robot.followTrajectorySequence(sequence);
+    }
 }
