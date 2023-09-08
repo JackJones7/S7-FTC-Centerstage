@@ -74,13 +74,115 @@ public class RoadRunnerBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
+            tooltip = "Line to a position with constant heading in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "End Position"}
+    )
+    public static void lineToConstantHeading(TrajectorySequenceBuilder builder, Vector2d endPosition) {
+        builder.lineToConstantHeading(endPosition);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Line to a position and heading with linear heading in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "End Pose"}
+    )
+    public static void lineToLinearHeading(TrajectorySequenceBuilder builder, Pose2d endPose) {
+        builder.lineToLinearHeading(endPose);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Line to a position and heading with spline heading in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "End Pose"}
+    )
+    public static void lineToSplineHeading(TrajectorySequenceBuilder builder, Pose2d endPose) {
+        builder.lineToSplineHeading(endPose);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Strafe to a position in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "End Pose"}
+    )
+    public static void strafeTo(TrajectorySequenceBuilder builder, Vector2d endPosition) {
+        builder.strafeTo(endPosition);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Move forward in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "Distance"}
+    )
+    public static void forward(TrajectorySequenceBuilder builder, double distance) {
+        builder.forward(distance);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Move backward in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "Distance"}
+    )
+    public static void back(TrajectorySequenceBuilder builder, double distance) {
+        builder.back(distance);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Strafe left in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "Distance"}
+    )
+    public static void strafeLeft(TrajectorySequenceBuilder builder, double distance) {
+        builder.strafeLeft(distance);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Strafe left in a trajectory sequence",
+            parameterLabels = {"Trajectory Sequence Builder", "Distance"}
+    )
+    public static void strafeRight(TrajectorySequenceBuilder builder, double distance) {
+        builder.strafeRight(distance);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Spline to position in a trajectory sequence",
+            parameterLabels = {"Trajectory sequence builder", "End Position", "End Tangent"}
+    )
+    public static void splineTo(TrajectorySequenceBuilder builder, Vector2d endPosition, double endTangent) {
+        builder.splineTo(endPosition, endTangent);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Spline to position with constant heading in a trajectory sequence",
+            parameterLabels = {"Trajectory sequence builder", "End Position", "End Tangent"}
+    )
+    public static void splineToConstantHeading(TrajectorySequenceBuilder builder, Vector2d endPosition, double endTangent) {
+        builder.splineToConstantHeading(endPosition, endTangent);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Spline to position with linear heading in a trajectory sequence",
+            parameterLabels = {"Trajectory sequence builder", "End Pose", "End Tangent"}
+    )
+    public static void splineToLinearHeading(TrajectorySequenceBuilder builder, Pose2d endPose, double endTangent) {
+        builder.splineToLinearHeading(endPose, endTangent);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Spline to position with spline heading in a trajectory sequence",
+            parameterLabels = {"Trajectory sequence builder", "End Pose", "End Tangent"}
+    )
+    public static void splineToSplineHeading(TrajectorySequenceBuilder builder, Pose2d endPose, double endTangent) {
+        builder.splineToSplineHeading(endPose, endTangent);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Turn in a trajectory sequence (Angle in radians)",
+            parameterLabels = {"Trajectory Sequence Builder", "Angle"}
+    )
+    public static void turn(TrajectorySequenceBuilder builder, double angle) {
+        builder.turn(angle);
+    }
+
+    @ExportToBlocks(
             tooltip = "Build trajectory sequence",
             parameterLabels = {"Trajectory sequence builder"}
     )
     public static TrajectorySequence build(TrajectorySequenceBuilder builder) {
         return builder.build();
     }
-
-    //TODO: Add rest
 
 }
