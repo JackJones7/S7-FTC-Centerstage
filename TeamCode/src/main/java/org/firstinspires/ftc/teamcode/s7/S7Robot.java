@@ -1,18 +1,24 @@
 package org.firstinspires.ftc.teamcode.s7;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Line;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class S7Robot {
     public SampleMecanumDrive drive;
 
     private LinearOpMode opMode;
+    private AprilTagProcessor aprilTagProcessor;
+    private VisionPortal visionPortal;
 
     public S7Robot(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -127,6 +133,17 @@ public class S7Robot {
     public void followTrajectoryAndWait(Trajectory trajectory) {
         drive.followTrajectory(trajectory);
         waitForDrive();
+    }
+
+    //AprilTag functionality
+    public void initAprilTag() {
+        AprilTagProcessor.Builder aprilTagProcessorBuilder = new AprilTagProcessor.Builder();
+        aprilTagProcessor = aprilTagProcessorBuilder.build();
+
+        VisionPortal.Builder visionPortalBuilder = new VisionPortal.Builder();
+        visionPortalBuilder.setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"));
+        visionPortalBuilder.addProcessor(aprilTagProcessor);
+        visionPortal = visionPortalBuilder.build();
     }
 
 }
