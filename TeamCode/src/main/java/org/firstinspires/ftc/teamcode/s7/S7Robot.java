@@ -5,6 +5,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -12,6 +13,8 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import java.util.ArrayList;
 
 public class S7Robot {
     public SampleMecanumDrive drive;
@@ -144,6 +147,10 @@ public class S7Robot {
         visionPortalBuilder.setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"));
         visionPortalBuilder.addProcessor(aprilTagProcessor);
         visionPortal = visionPortalBuilder.build();
+    }
+
+    public ArrayList<AprilTagDetection> getAprilTagDetections() {
+        return aprilTagProcessor.getDetections();
     }
 
 }
