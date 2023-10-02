@@ -45,7 +45,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
+/*
  * This OpMode determines the best Exposure for minimizing image motion-blur on a Webcam
  * Note that it is not possible to control the exposure for a Phone Camera, so if you are using a Phone for the Robot Controller
  * this OpMode/Feature only applies to an externally connected Webcam
