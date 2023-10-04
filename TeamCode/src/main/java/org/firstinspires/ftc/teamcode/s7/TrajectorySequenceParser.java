@@ -15,13 +15,6 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 
-/*
-*
-* This is a class for an idea I had. If this class were finished, it would take a string that represented a code for a
-* trajectory sequence and convert it into a usable trajectory sequence. It was supposed to make its usage in blocks easier.
-* While I'm not working on it anymore, it could still be useful so I'm keeping the class around for now
-*
-*/
 
 public class TrajectorySequenceParser {
 
@@ -38,14 +31,59 @@ public class TrajectorySequenceParser {
 
         //TODO: Add error handling
         for (String line : sequenceList) {
-            String[] current = line.split(" ");
+            String[] currentLine = line.split(" ");
+            String code = currentLine[0];
+            String[] params = java.util.Arrays.copyOfRange(currentLine, 1, currentLine.length);
 
-            switch(current[0]) {
+            switch (code) {
                 case "lt":
-                    //sequence.lineTo(new Vector2d(current[1], current[2]));
+                    sequence.lineTo(new Vector2d(Double.parseDouble(params[0]), Double.parseDouble(params[1])));
+                    break;
+
+                case "ltch":
+                    sequence.lineToConstantHeading(new Vector2d(Double.parseDouble(params[0]), Double.parseDouble(params[1])));
+                    break;
+
+                case "ltlh":
+                    sequence.lineToLinearHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Double.parseDouble(params[2])));
+                    break;
+
+                case "ltsh":
+                    break;
+
+                case "stt":
+                    break;
+
+                case "f":
+                    break;
+
+                case "b":
+                    break;
+
+                case "sl":
+                    break;
+
+                case "sr":
+                    break;
+
+                case "st":
+                    break;
+
+                case "stch":
+                    break;
+
+                case "stlh":
+                    break;
+
+                case "stsh":
+                    break;
+
+                case "t":
+                    break;
             }
+
         }
-        return null;
+        return sequence.build();
     }
 
 }
