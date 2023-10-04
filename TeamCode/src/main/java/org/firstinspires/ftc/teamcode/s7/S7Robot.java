@@ -17,7 +17,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.ArrayList;
 
 public class S7Robot {
+    public enum PoseEstimateMode {
+        KEEP,
+        RESET
+    }
+
     public SampleMecanumDrive drive;
+    public PoseEstimateMode poseEstimateMode;
 
     private LinearOpMode opMode;
     private AprilTagProcessor aprilTagProcessor;
@@ -26,12 +32,27 @@ public class S7Robot {
     public S7Robot(LinearOpMode opMode) {
         this.opMode = opMode;
         this.drive = new SampleMecanumDrive(opMode.hardwareMap);
+        this.poseEstimateMode = PoseEstimateMode.KEEP;
     }
 
     public S7Robot(LinearOpMode opMode, Pose2d startPose) {
         this.opMode = opMode;
         this.drive = new SampleMecanumDrive(opMode.hardwareMap);
         this.drive.setPoseEstimate(startPose);
+        this.poseEstimateMode = PoseEstimateMode.KEEP;
+    }
+
+    public S7Robot (LinearOpMode opMode, PoseEstimateMode poseEstimateMode) {
+        this.opMode = opMode;
+        this.drive = new SampleMecanumDrive(opMode.hardwareMap);
+        this.poseEstimateMode = poseEstimateMode;
+    }
+
+    public S7Robot(LinearOpMode opMode, Pose2d startPose, PoseEstimateMode poseEstimateMode) {
+        this.opMode = opMode;
+        this.drive = new SampleMecanumDrive(opMode.hardwareMap);
+        this.drive.setPoseEstimate(startPose);
+        this.poseEstimateMode = poseEstimateMode;
     }
 
     //drive functions
@@ -120,6 +141,7 @@ public class S7Robot {
     public void turn(double angle) {
         drive.turn(angle);
         waitForDrive();
+        if (poseEstimateMode == PoseEstimateMode.RESET) {drive.setPoseEstimate(new Pose2d());}
     }
 
     //TODO: add overrides for different max velocity and accel
@@ -127,6 +149,7 @@ public class S7Robot {
     public void followTrajectorySequence(TrajectorySequence sequence) {
         drive.followTrajectorySequence(sequence);
         waitForDrive();
+        if (poseEstimateMode == PoseEstimateMode.RESET) {drive.setPoseEstimate(new Pose2d());}
     }
 
     public void waitForDrive() {

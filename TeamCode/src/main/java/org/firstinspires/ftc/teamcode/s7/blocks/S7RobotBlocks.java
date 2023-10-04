@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.s7.blocks;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @ExportClassToBlocks
 public class S7RobotBlocks extends BlocksOpModeCompanion {
 
+    //constructors
     @ExportToBlocks(
             tooltip = "S7Robot constructor"
     )
@@ -19,8 +21,37 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
         return new S7Robot(linearOpMode);
     }
 
-    //TODO: add headings
+    @ExportToBlocks(
+            tooltip = "S7Robot constructor with start pose",
+            parameterLabels = {"Start Pose"}
+    )
+    public static S7Robot s7Robot(Pose2d startPose) {return new S7Robot(linearOpMode, startPose);}
 
+    @ExportToBlocks(
+            tooltip = "S7Robot constructor with pose estimate mode",
+            parameterLabels = {"Pose Estimate Mode"}
+    )
+    public static S7Robot s7Robot(S7Robot.PoseEstimateMode poseEstimateMode) {return new S7Robot(linearOpMode, poseEstimateMode);}
+
+    @ExportToBlocks(
+            tooltip = "S7Robot constructor with start pose and pose estimate mode",
+            parameterLabels = {"Start Pose", "Pose Estimate Mode"}
+    )
+    public static S7Robot s7Robot(Pose2d startPose, S7Robot.PoseEstimateMode poseEstimateMode) {return new S7Robot(linearOpMode, startPose, poseEstimateMode);}
+
+
+    //Pose Estimate Mode
+    @ExportToBlocks(
+            tooltip = "Keep pose estimate after movement"
+    )
+    public static S7Robot.PoseEstimateMode keepMode() {return S7Robot.PoseEstimateMode.KEEP;}
+
+    @ExportToBlocks(
+            tooltip = "Reset pose estimate after movement"
+    )
+    public static S7Robot.PoseEstimateMode resetMode() {return S7Robot.PoseEstimateMode.RESET;}
+
+    //TODO: Add headings
     //drive
     @ExportToBlocks(
             heading = "Set Weighted Drive Power",
