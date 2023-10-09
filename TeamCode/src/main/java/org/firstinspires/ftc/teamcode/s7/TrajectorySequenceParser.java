@@ -36,7 +36,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuild
 * splineToSplineHeading: stsh x y endHeading splineHeading
 * turn: t radians
 *
-* All angles are in radians. You'll have to convert them yourself. Sorry.
+* All angles in degrees
 *
 */
 
@@ -57,7 +57,7 @@ public class TrajectorySequenceParser {
                 VEL_CONSTRAINT, ACCEL_CONSTRAINT,
                 MAX_ANG_VEL, MAX_ANG_ACCEL);
 
-        String[] sequenceList = sequenceText.split("\n");
+        String[] sequenceList = sequenceText.split(";");
 
         //TODO: Add error handling
         for (String line : sequenceList) {
@@ -75,11 +75,11 @@ public class TrajectorySequenceParser {
                     break;
 
                 case "ltlh":
-                    sequence.lineToLinearHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Double.parseDouble(params[2])));
+                    sequence.lineToLinearHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Math.toRadians(Double.parseDouble(params[2]))));
                     break;
 
                 case "ltsh":
-                    sequence.lineToSplineHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Double.parseDouble(params[2])));
+                    sequence.lineToSplineHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Math.toRadians(Double.parseDouble(params[2]))));
                     break;
 
                 case "stt":
@@ -103,23 +103,23 @@ public class TrajectorySequenceParser {
                     break;
 
                 case "st":
-                    sequence.splineTo(new Vector2d(Double.parseDouble(params[0]), Double.parseDouble(params[1])), Double.parseDouble(params[2]));
+                    sequence.splineTo(new Vector2d(Double.parseDouble(params[0]), Double.parseDouble(params[1])), Math.toRadians(Double.parseDouble(params[2])));
                     break;
 
                 case "stch":
-                    sequence.splineToConstantHeading(new Vector2d(Double.parseDouble(params[0]), Double.parseDouble(params[1])), Double.parseDouble(params[2]));
+                    sequence.splineToConstantHeading(new Vector2d(Double.parseDouble(params[0]), Double.parseDouble(params[1])), Math.toRadians(Double.parseDouble(params[2])));
                     break;
 
                 case "stlh":
-                    sequence.splineToLinearHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Double.parseDouble(params[2])), Double.parseDouble(params[3]));
+                    sequence.splineToLinearHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Math.toRadians(Double.parseDouble(params[2]))), Math.toRadians(Double.parseDouble(params[3])));
                     break;
 
                 case "stsh":
-                    sequence.splineToSplineHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Double.parseDouble(params[2])), Double.parseDouble(params[3]));
+                    sequence.splineToSplineHeading(new Pose2d(Double.parseDouble(params[0]), Double.parseDouble(params[1]), Math.toRadians(Double.parseDouble(params[2]))), Math.toRadians(Double.parseDouble(params[3])));
                     break;
 
                 case "t":
-                    sequence.turn(Double.parseDouble(params[0]));
+                    sequence.turn(Math.toRadians(Double.parseDouble(params[0])));
                     break;
             }
 
