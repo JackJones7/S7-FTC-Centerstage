@@ -35,6 +35,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuild
 * splineToLinearHeading: stlh x y endHeading splineHeading
 * splineToSplineHeading: stsh x y endHeading splineHeading
 * turn: t radians
+* reverse trajectory: r
 *
 * All angles in degrees
 *
@@ -120,6 +121,13 @@ public class TrajectorySequenceParser {
 
                 case "t":
                     sequence.turn(Math.toRadians(Double.parseDouble(params[0])));
+                    break;
+
+                case "r":
+                    sequence.setReversed(true);
+                    break;
+
+                default:
                     break;
             }
 
