@@ -9,6 +9,9 @@ import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 import org.firstinspires.ftc.teamcode.s7.S7Robot;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+
+import java.util.ArrayList;
 
 @ExportClassToBlocks
 public class S7RobotBlocks extends BlocksOpModeCompanion {
@@ -181,5 +184,21 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     )
     public static void followTrajectorySequence(S7Robot robot, TrajectorySequence sequence) {
         robot.followTrajectorySequence(sequence);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Initialize internal AprilTag processing",
+            parameterLabels = {"S7Robot"}
+    )
+    public static void initAprilTag(S7Robot robot) {
+        robot.initAprilTag();
+    }
+
+    @ExportToBlocks(
+            tooltip = "Get current april tag detections (Must use initAprilTag first)",
+            parameterLabels = {"S7Robot"}
+    )
+    public static ArrayList<AprilTagDetection> getAprilTagDetections(S7Robot robot) {
+        return robot.getAprilTagDetections();
     }
 }
