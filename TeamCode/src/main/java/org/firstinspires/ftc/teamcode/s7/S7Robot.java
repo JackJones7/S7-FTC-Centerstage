@@ -12,6 +12,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.ArrayList;
@@ -58,6 +59,14 @@ public class S7Robot {
     //drive functions
     public void setWeightedDrivePower(Pose2d drivePower) {
         drive.setWeightedDrivePower(drivePower);
+    }
+
+    public void driveControl(Gamepad gamepad, double power) {
+        drive.setWeightedDrivePower(new Pose2d(
+                -gamepad.left_stick_y * power,
+                -gamepad.left_stick_x * power,
+                gamepad.right_stick_x * power
+        ));
     }
 
     public void lineTo(Vector2d endPosition) {

@@ -66,6 +66,15 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
+            heading = "Drive Control",
+            tooltip = "Basic drive controls based on SetWeightedDrivePower",
+            parameterLabels = {"S7Robot", "Power"}
+    )
+    public static void driveControl(S7Robot robot, double power) {
+        robot.driveControl(gamepad1, power);
+    }
+
+    @ExportToBlocks(
             tooltip = "Move robot to a point in a straight line with a tangent heading",
             parameterLabels = {"S7Robot", "Position"}
     )
