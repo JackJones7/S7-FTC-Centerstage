@@ -65,7 +65,7 @@ public class S7Robot {
         drive.setWeightedDrivePower(new Pose2d(
                 -gamepad.left_stick_y * power,
                 -gamepad.left_stick_x * power,
-                gamepad.right_stick_x * power
+                -gamepad.right_stick_x * power
         ));
     }
 
