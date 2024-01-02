@@ -210,4 +210,12 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     public static ArrayList<AprilTagDetection> getAprilTagDetections(S7Robot robot) {
         return robot.getAprilTagDetections();
     }
+
+    @ExportToBlocks(
+            tooltip = "Initialize TensorFlow object detection",
+            parameterLabels = {"S7Robot", "Minimum Confidence"}
+    )
+    public static void initTensorFlow(S7Robot robot, float minConfidence){
+        robot.initTensorFlow(minConfidence);
+    }
 }

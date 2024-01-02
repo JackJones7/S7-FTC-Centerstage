@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
@@ -29,6 +30,8 @@ public class S7Robot {
     private LinearOpMode opMode;
     private AprilTagProcessor aprilTagProcessor;
     private VisionPortal visionPortal;
+
+    private TfodProcessor tfod;
 
     public S7Robot(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -185,4 +188,14 @@ public class S7Robot {
         return aprilTagProcessor.getDetections();
     }
 
+    //Tensorflow
+    public void initTensorFlow(float minConfidence) {
+        tfod = new TfodProcessor.Builder().build();
+        tfod.setMinResultConfidence(minConfidence);
+        VisionPortal.Builder builder = new VisionPortal.Builder();
+        builder.setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"));
+
+        builder.addProcessor(tfod);
+        visionPortal = builder.build();
+    }
 }
