@@ -7,11 +7,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.s7.S7Robot;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @ExportClassToBlocks
 public class S7RobotBlocks extends BlocksOpModeCompanion {
@@ -217,5 +219,21 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     )
     public static void initTensorFlow(S7Robot robot, float minConfidence){
         robot.initTensorFlow(minConfidence);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Get list of objects recognized by TensorFlow",
+            parameterLabels = {"S7Robot"}
+    )
+    public static List<Recognition> getTensorFlowRecognitions(S7Robot robot) {
+        return robot.getTensorFlowRecognitions();
+    }
+
+    @ExportToBlocks(
+            tooltip = "Find a specific recognized object based on its label",
+            parameterLabels = {"S7Robot", "Label"}
+    )
+    public static void findRecognitionWithLabel(S7Robot robot, String label){
+        robot.findRecognitionWithLabel(label);
     }
 }
