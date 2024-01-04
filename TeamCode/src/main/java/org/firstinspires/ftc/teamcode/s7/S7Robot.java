@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.s7;
 
 import org.apache.commons.math3.geometry.euclidean.twod.Line;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -17,6 +18,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class S7Robot {
     public enum PoseEstimateMode {
@@ -197,5 +199,19 @@ public class S7Robot {
 
         builder.addProcessor(tfod);
         visionPortal = builder.build();
+    }
+
+    public List<Recognition> getTensorFlowRecognitions() {
+        return tfod.getRecognitions();
+    }
+
+    public Recognition findRecognitionWithLabel(String label) {
+        for (Recognition recognition : tfod.getRecognitions()) {
+            if (recognition.getLabel() == label) {
+                return recognition;
+            }
+        }
+
+        return null;
     }
 }
