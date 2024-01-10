@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.s7;
 
+import android.util.Size;
+
 import org.apache.commons.math3.geometry.euclidean.twod.Line;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -194,10 +196,11 @@ public class S7Robot {
     public void initTensorFlow(float minConfidence) {
         tfod = new TfodProcessor.Builder().build();
         tfod.setMinResultConfidence(minConfidence);
+
         VisionPortal.Builder builder = new VisionPortal.Builder();
         builder.setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"));
-
         builder.addProcessor(tfod);
+        builder.setCameraResolution(new Size(1280, 720));
         visionPortal = builder.build();
     }
 
