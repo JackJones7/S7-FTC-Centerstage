@@ -36,6 +36,7 @@ public class S7Robot {
     private VisionPortal visionPortal;
 
     private TfodProcessor tfod;
+    private static final String tfModel = "PropModel1";
 
     public S7Robot(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -194,14 +195,16 @@ public class S7Robot {
 
     //Tensorflow
     public void initTensorFlow(float minConfidence) {
-        tfod = new TfodProcessor.Builder().build();
+        tfod = new TfodProcessor.Builder()
+                .setModelAssetName(tfModel)
+                .build();
         tfod.setMinResultConfidence(minConfidence);
 
-        VisionPortal.Builder builder = new VisionPortal.Builder();
-        builder.setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"));
-        builder.addProcessor(tfod);
-        builder.setCameraResolution(new Size(1280, 720));
-        visionPortal = builder.build();
+        VisionPortal visionPortal = new VisionPortal.Builder()
+            .setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"))
+            .addProcessor(tfod)
+            .setCameraResolution(new Size(1280, 720))
+            .build();
     }
 
     public List<Recognition> getTensorFlowRecognitions() {
