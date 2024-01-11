@@ -226,7 +226,7 @@ public class S7Robot {
     }
 
     public Recognition findRecognitionWithLabel(String label) {
-        for (Recognition recognition : tfod.getFreshRecognitions()) {
+        for (Recognition recognition : tfod.getRecognitions()) {
             if (recognition.getLabel() == label) {
                 return recognition;
             }
