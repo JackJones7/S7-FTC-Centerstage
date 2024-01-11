@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.s7;
 
 import android.util.Size;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Line;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -17,7 +16,6 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ public class S7Robot {
     private VisionPortal visionPortal;
 
     private TfodProcessor tfod;
-    private static final String tfModel = "PropModel1";
+    private static final String DEFAULT_PROP_MODEL = "PropModel1.tflite";
 
     public S7Robot(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -196,7 +194,7 @@ public class S7Robot {
     //Tensorflow
     public void initTensorFlow(float minConfidence) {
         tfod = new TfodProcessor.Builder()
-                .setModelAssetName(tfModel)
+                .setModelAssetName(DEFAULT_PROP_MODEL)
                 .build();
         tfod.setMinResultConfidence(minConfidence);
 
@@ -205,6 +203,19 @@ public class S7Robot {
             .addProcessor(tfod)
             .setCameraResolution(new Size(1280, 720))
             .build();
+    }
+
+    public void initTensorFlow(float minConfidence, String model) {
+        tfod = new TfodProcessor.Builder()
+                .setModelAssetName(model)
+                .build();
+        tfod.setMinResultConfidence(minConfidence);
+
+        VisionPortal visionPortal = new VisionPortal.Builder()
+                .setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"))
+                .addProcessor(tfod)
+                .setCameraResolution(new Size(1280, 720))
+                .build();
     }
 
     public List<Recognition> getTensorFlowRecognitions() {

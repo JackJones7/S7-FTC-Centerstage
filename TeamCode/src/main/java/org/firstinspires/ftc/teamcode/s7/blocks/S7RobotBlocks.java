@@ -222,6 +222,14 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
+            tooltip = "Initialize TensorFlow object detection",
+            parameterLabels = {"S7Robot", "Minimum Confidence", "Model Asset Name"}
+    )
+    public static void initTensorFlow(S7Robot robot, float minConfidence, String model){
+        robot.initTensorFlow(minConfidence, model);
+    }
+
+    @ExportToBlocks(
             tooltip = "Get list of objects recognized by TensorFlow",
             parameterLabels = {"S7Robot"}
     )
