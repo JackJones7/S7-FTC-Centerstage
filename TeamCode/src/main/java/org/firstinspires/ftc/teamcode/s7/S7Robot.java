@@ -202,8 +202,8 @@ public class S7Robot {
 
         VisionPortal visionPortal = new VisionPortal.Builder()
             .setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"))
-            .addProcessor(tfod)
             .setCameraResolution(new Size(1280, 720))
+            .addProcessor(tfod)
             .build();
     }
 
@@ -216,8 +216,8 @@ public class S7Robot {
 
         VisionPortal visionPortal = new VisionPortal.Builder()
                 .setCamera(opMode.hardwareMap.get(WebcamName.class, "Webcam 1"))
-                .addProcessor(tfod)
                 .setCameraResolution(new Size(1280, 720))
+                .addProcessor(tfod)
                 .build();
     }
 
