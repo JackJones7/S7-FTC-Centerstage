@@ -241,7 +241,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
             tooltip = "Find a specific recognized object based on its label",
             parameterLabels = {"S7Robot", "Label"}
     )
-    public static void findRecognitionWithLabel(S7Robot robot, String label){
-        robot.findRecognitionWithLabel(label);
+    public static Recognition findRecognitionWithLabel(S7Robot robot, String label){
+        return robot.findRecognitionWithLabel(label);
     }
 }
