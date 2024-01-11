@@ -35,6 +35,7 @@ public class S7Robot {
 
     private TfodProcessor tfod;
     private static final String DEFAULT_PROP_MODEL = "PropModel1.tflite";
+    private static final String[] LABELS = {"PropBlue", "PropRed"};
 
     public S7Robot(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -195,6 +196,7 @@ public class S7Robot {
     public void initTensorFlow(float minConfidence) {
         tfod = new TfodProcessor.Builder()
                 .setModelAssetName(DEFAULT_PROP_MODEL)
+                .setModelLabels(LABELS)
                 .build();
         tfod.setMinResultConfidence(minConfidence);
 
@@ -208,6 +210,7 @@ public class S7Robot {
     public void initTensorFlow(float minConfidence, String model) {
         tfod = new TfodProcessor.Builder()
                 .setModelAssetName(model)
+                .setModelLabels(LABELS)
                 .build();
         tfod.setMinResultConfidence(minConfidence);
 
@@ -223,7 +226,7 @@ public class S7Robot {
     }
 
     public Recognition findRecognitionWithLabel(String label) {
-        for (Recognition recognition : tfod.getRecognitions()) {
+        for (Recognition recognition : tfod.getFreshRecognitions()) {
             if (recognition.getLabel() == label) {
                 return recognition;
             }
