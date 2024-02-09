@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.s7.blocks;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
@@ -195,6 +196,14 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     )
     public static void followTrajectorySequence(S7Robot robot, TrajectorySequence sequence) {
         robot.followTrajectorySequence(sequence);
+    }
+
+    @ExportToBlocks(
+            tooltip = "Follow a trajectory",
+            parameterLabels = {"S7Robot", "Trajectory"}
+    )
+    public static void followTrajectory(S7Robot robot, Trajectory trajectory) {
+        robot.followTrajectory(trajectory);
     }
 
     @ExportToBlocks(

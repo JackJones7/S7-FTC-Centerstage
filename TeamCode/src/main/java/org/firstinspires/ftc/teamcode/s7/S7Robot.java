@@ -168,6 +168,12 @@ public class S7Robot {
         if (poseEstimateMode == PoseEstimateMode.RESET) {drive.setPoseEstimate(new Pose2d());}
     }
 
+    public void followTrajectory(Trajectory trajectory) {
+        drive.followTrajectory(trajectory);
+        waitForDrive();
+        if (poseEstimateMode == PoseEstimateMode.RESET) {drive.setPoseEstimate(new Pose2d());}
+    }
+
     public void waitForDrive() {
         drive.waitForIdle();
     }
