@@ -62,7 +62,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot to a point in a straight line with a constant heading",
+            tooltip = "Straight line with a constant heading",
             parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
     public static Trajectory lineToConstantHeading(S7Robot robot, Vector2d position, boolean reversed) {
@@ -70,7 +70,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot to a point in a straight line with a linear heading",
+            tooltip = "Straight line with linear heading interpolation",
             parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
     public static Trajectory lineToLinearHeading(S7Robot robot, Pose2d position, boolean reversed) {
@@ -78,7 +78,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot to a point in a straight line with a spline heading",
+            tooltip = "Straight line with spline heading interpolation",
             parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
     public static Trajectory lineToSplineHeading(S7Robot robot, Pose2d position, boolean reversed) {
@@ -86,7 +86,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Strafe robot to a point",
+            tooltip = "Strafe with tangent heading",
             parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
     public static Trajectory strafeTo(S7Robot robot, Vector2d position, boolean reversed) {
@@ -94,7 +94,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move the robot forward",
+            tooltip = "Straight line towards current heading",
             parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
     public static Trajectory forward(S7Robot robot, double distance, boolean reversed) {
@@ -102,7 +102,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move the robot backward",
+            tooltip = "Straight line away from current heading",
             parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
     public static Trajectory back(S7Robot robot, double distance, boolean reversed) {
@@ -110,7 +110,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move the robot left",
+            tooltip = "Straight line left of current heading",
             parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
     public static Trajectory strafeLeft(S7Robot robot, double distance, boolean reversed) {
@@ -118,7 +118,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move the robot right",
+            tooltip = "Straight line right of current heading",
             parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
     public static Trajectory strafeRight(S7Robot robot, double distance, boolean reversed) {
@@ -126,7 +126,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot in a spline to an end position",
+            tooltip = "Spline with tangent heading",
             parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
     public static Trajectory splineTo(S7Robot robot, Vector2d position, double endTangent, boolean reversed) {
@@ -134,7 +134,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot in a spline to an end position with a constant heading",
+            tooltip = "Spline with constant heading",
             parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
     public static Trajectory splineToConstantHeading(S7Robot robot, Vector2d position, double endTangent, boolean reversed) {
@@ -142,7 +142,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot in a spline to an end position with a linear heading",
+            tooltip = "Spline with linear heading interpolation",
             parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
     public static Trajectory splineToLinearHeading(S7Robot robot, Pose2d position, double endTangent, boolean reversed) {
@@ -150,7 +150,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot in a spline to an end position with a spline heading",
+            tooltip = "Spline with spline heading interpolation",
             parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
     public static Trajectory splineToSplineHeading(S7Robot robot, Pose2d position, double endTangent, boolean reversed) {
