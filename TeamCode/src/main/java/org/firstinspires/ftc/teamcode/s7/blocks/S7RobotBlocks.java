@@ -53,6 +53,26 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
         robot.s7Drive.setWeightedDrivePower(new Pose2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x));
     }
 
+
+    @ExportToBlocks(
+            heading = "Set Velocity Constraints",
+            tooltip = "Set maximum translational and angular velocity for generated trajectories",
+            parameterLabels = {"S7Robot", "Max Velocity", "Max Angular Velocity"}
+    )
+    public static void setVelConstraints(S7Robot robot, double maxVel, double maxAngVel) {
+        robot.s7Drive.setVelConstraint(maxVel, maxAngVel);
+    }
+
+    @ExportToBlocks(
+            heading = "Set Acceleration Constraint",
+            tooltip = "Set maximum acceleration for generated trajectories",
+            parameterLabels = {"S7Robot", "Max Acceleration"}
+    )
+    public static void setAccelConstraint(S7Robot robot, double maxAccel) {
+        robot.s7Drive.setAccelConstraint(maxAccel);
+    }
+
+
     @ExportToBlocks(
             tooltip = "Straight line with a tangent heading",
             parameterLabels = {"S7Robot", "Position", "Reversed"}
