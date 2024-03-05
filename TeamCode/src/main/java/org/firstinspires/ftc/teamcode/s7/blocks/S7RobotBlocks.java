@@ -33,31 +33,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     )
     public static S7Robot s7Robot(Pose2d startPose) {return new S7Robot(linearOpMode, startPose);}
 
-    @ExportToBlocks(
-            tooltip = "S7Robot constructor with pose estimate mode",
-            parameterLabels = {"Pose Estimate Mode"}
-    )
-    public static S7Robot s7Robot(S7Robot.PoseEstimateMode poseEstimateMode) {return new S7Robot(linearOpMode, poseEstimateMode);}
 
-    @ExportToBlocks(
-            tooltip = "S7Robot constructor with start pose and pose estimate mode",
-            parameterLabels = {"Start Pose", "Pose Estimate Mode"}
-    )
-    public static S7Robot s7Robot(Pose2d startPose, S7Robot.PoseEstimateMode poseEstimateMode) {return new S7Robot(linearOpMode, startPose, poseEstimateMode);}
-
-
-    //Pose Estimate Mode
-    @ExportToBlocks(
-            tooltip = "Keep pose estimate after movement"
-    )
-    public static S7Robot.PoseEstimateMode keepMode() {return S7Robot.PoseEstimateMode.KEEP;}
-
-    @ExportToBlocks(
-            tooltip = "Reset pose estimate after movement"
-    )
-    public static S7Robot.PoseEstimateMode resetMode() {return S7Robot.PoseEstimateMode.RESET;}
-
-    //TODO: Add headings
     //drive
     @ExportToBlocks(
             heading = "Set Weighted Drive Power",
@@ -65,7 +41,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
             parameterLabels = {"S7Robot", "Drive Power"}
     )
     public static void setWeightedDrivePower(S7Robot robot, Pose2d drivePower) {
-        robot.setWeightedDrivePower(drivePower);
+        robot.s7Drive.setWeightedDrivePower(drivePower);
     }
 
     @ExportToBlocks(
@@ -74,111 +50,111 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
             parameterLabels = {"S7Robot", "Power"}
     )
     public static void driveControl(S7Robot robot, double power) {
-        robot.driveControl(gamepad1, power);
+        robot.s7Drive.setWeightedDrivePower(new Pose2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x));
     }
 
     @ExportToBlocks(
-            tooltip = "Move robot to a point in a straight line with a tangent heading",
-            parameterLabels = {"S7Robot", "Position"}
+            tooltip = "Straight line with a tangent heading",
+            parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
-    public static void lineTo(S7Robot robot, Vector2d position) {
-        robot.lineTo(position);
+    public static Trajectory lineTo(S7Robot robot, Vector2d position, boolean reversed) {
+        return robot.s7Drive.lineTo(position, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move robot to a point in a straight line with a constant heading",
-            parameterLabels = {"S7Robot", "Position"}
+            parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
-    public static void lineToConstantHeading(S7Robot robot, Vector2d position) {
-        robot.lineToConstantHeading(position);
+    public static Trajectory lineToConstantHeading(S7Robot robot, Vector2d position, boolean reversed) {
+        return robot.s7Drive.lineToConstantHeading(position, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move robot to a point in a straight line with a linear heading",
-            parameterLabels = {"S7Robot", "Position"}
+            parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
-    public static void lineToLinearHeading(S7Robot robot, Pose2d position) {
-        robot.lineToLinearHeading(position);
+    public static Trajectory lineToLinearHeading(S7Robot robot, Pose2d position, boolean reversed) {
+        return robot.s7Drive.lineToLinearHeading(position, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move robot to a point in a straight line with a spline heading",
-            parameterLabels = {"S7Robot", "Position"}
+            parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
-    public static void lineToSplineHeading(S7Robot robot, Pose2d position) {
-        robot.lineToSplineHeading(position);
+    public static Trajectory lineToSplineHeading(S7Robot robot, Pose2d position, boolean reversed) {
+        return robot.s7Drive.lineToSplineHeading(position, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Strafe robot to a point",
-            parameterLabels = {"S7Robot", "Position"}
+            parameterLabels = {"S7Robot", "Position", "Reversed"}
     )
-    public static void strafeTo(S7Robot robot, Vector2d position) {
-        robot.strafeTo(position);
+    public static Trajectory strafeTo(S7Robot robot, Vector2d position, boolean reversed) {
+        return robot.s7Drive.strafeTo(position, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move the robot forward",
-            parameterLabels = {"S7Robot", "Distance"}
+            parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
-    public static void forward(S7Robot robot, double distance) {
-        robot.forward(distance);
+    public static Trajectory forward(S7Robot robot, double distance, boolean reversed) {
+        return robot.s7Drive.forward(distance, reversed);
     }
 
     @ExportToBlocks(
-            tooltip = "Move the robot forward",
-            parameterLabels = {"S7Robot", "Distance"}
+            tooltip = "Move the robot backward",
+            parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
-    public static void back(S7Robot robot, double distance) {
-        robot.back(distance);
+    public static Trajectory back(S7Robot robot, double distance, boolean reversed) {
+        return robot.s7Drive.back(distance, reversed);
     }
 
     @ExportToBlocks(
-            tooltip = "Move the robot forward",
-            parameterLabels = {"S7Robot", "Distance"}
+            tooltip = "Move the robot left",
+            parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
-    public static void strafeLeft(S7Robot robot, double distance) {
-        robot.strafeLeft(distance);
+    public static Trajectory strafeLeft(S7Robot robot, double distance, boolean reversed) {
+        return robot.s7Drive.strafeLeft(distance, reversed);
     }
 
     @ExportToBlocks(
-            tooltip = "Move the robot forward",
-            parameterLabels = {"S7Robot", "Distance"}
+            tooltip = "Move the robot right",
+            parameterLabels = {"S7Robot", "Distance", "Reversed"}
     )
-    public static void strafeRight(S7Robot robot, double distance) {
-        robot.strafeRight(distance);
+    public static Trajectory strafeRight(S7Robot robot, double distance, boolean reversed) {
+        return robot.s7Drive.strafeRight(distance, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move robot in a spline to an end position",
-            parameterLabels = {"S7Robot", "Position", "End Tangent"}
+            parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
-    public static void splineTo(S7Robot robot, Vector2d position, double endTangent) {
-        robot.splineTo(position, endTangent);
+    public static Trajectory splineTo(S7Robot robot, Vector2d position, double endTangent, boolean reversed) {
+        return robot.s7Drive.splineTo(position, endTangent, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move robot in a spline to an end position with a constant heading",
-            parameterLabels = {"S7Robot", "Position", "End Tangent"}
+            parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
-    public static void splineToConstantHeading(S7Robot robot, Vector2d position, double endTangent) {
-        robot.splineToConstantHeading(position, endTangent);
+    public static Trajectory splineToConstantHeading(S7Robot robot, Vector2d position, double endTangent, boolean reversed) {
+        return robot.s7Drive.splineToConstantHeading(position, endTangent, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move robot in a spline to an end position with a linear heading",
-            parameterLabels = {"S7Robot", "Position", "End Tangent"}
+            parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
-    public static void splineToLinearHeading(S7Robot robot, Pose2d position, double endTangent) {
-        robot.splineToLinearHeading(position, endTangent);
+    public static Trajectory splineToLinearHeading(S7Robot robot, Pose2d position, double endTangent, boolean reversed) {
+        return robot.s7Drive.splineToLinearHeading(position, endTangent, reversed);
     }
 
     @ExportToBlocks(
             tooltip = "Move robot in a spline to an end position with a spline heading",
-            parameterLabels = {"S7Robot", "Position", "End Tangent"}
+            parameterLabels = {"S7Robot", "Position", "End Tangent", "Reversed"}
     )
-    public static void splineToSplineHeading(S7Robot robot, Pose2d position, double endTangent) {
-        robot.splineToSplineHeading(position, endTangent);
+    public static Trajectory splineToSplineHeading(S7Robot robot, Pose2d position, double endTangent, boolean reversed) {
+        return robot.s7Drive.splineToSplineHeading(position, endTangent, reversed);
     }
 
     @ExportToBlocks(
@@ -187,7 +163,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
             parameterLabels = {"S7Robot", "Angle"}
     )
     public static void turn(S7Robot robot, double angle) {
-        robot.turn(angle);
+        robot.s7Drive.drive.turn(angle);
     }
 
     @ExportToBlocks(
@@ -195,7 +171,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
             parameterLabels = {"S7Robot", "Trajectory sequence"}
     )
     public static void followTrajectorySequence(S7Robot robot, TrajectorySequence sequence) {
-        robot.followTrajectorySequence(sequence);
+        robot.s7Drive.followTrajectorySequence(sequence);
     }
 
     @ExportToBlocks(
@@ -203,7 +179,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
             parameterLabels = {"S7Robot", "Trajectory"}
     )
     public static void followTrajectory(S7Robot robot, Trajectory trajectory) {
-        robot.followTrajectory(trajectory);
+        robot.s7Drive.followTrajectory(trajectory);
     }
 
     @ExportToBlocks(
