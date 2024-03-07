@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
@@ -87,7 +88,7 @@ public class S7Drive {
     }
 
     public Trajectory loadTrajectory(String filename) {
-        File file = new File(filename);
+        File file = AppUtil.getInstance().getSettingsFile(filename)
         return TrajectoryConfigManager.load(file);
     }
 
