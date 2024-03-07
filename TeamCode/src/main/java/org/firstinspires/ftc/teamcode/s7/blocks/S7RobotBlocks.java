@@ -56,7 +56,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     @ExportToBlocks(
             heading = "Load trajectory",
             tooltip = "Load a trajectory from a .yaml file",
-            parameterLabels = {"Filename"}
+            parameterLabels = {"S7Robot", "Filename"}
     )
     public static Trajectory loadTrajectory(S7Robot robot, String filename) {
         return robot.s7Drive.loadTrajectory(filename);
