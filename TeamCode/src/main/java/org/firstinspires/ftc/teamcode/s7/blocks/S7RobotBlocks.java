@@ -53,6 +53,14 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
         robot.s7Drive.setWeightedDrivePower(new Pose2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x));
     }
 
+    @ExportToBlocks(
+            heading = "Load trajectory",
+            tooltip = "Load a trajectory from a .yaml file",
+            parameterLabels = {"Filename"}
+    )
+    public static Trajectory loadTrajectory(S7Robot robot, String filename) {
+        return robot.s7Drive.loadTrajectory(filename);
+    }
 
     @ExportToBlocks(
             heading = "Set Velocity Constraints",
