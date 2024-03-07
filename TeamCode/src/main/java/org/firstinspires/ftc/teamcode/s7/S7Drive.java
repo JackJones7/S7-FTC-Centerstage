@@ -88,7 +88,7 @@ public class S7Drive {
     }
 
     public Trajectory loadTrajectory(String filename) {
-        File file = AppUtil.getInstance().getSettingsFile(filename)
+        File file = AppUtil.getInstance().getSettingsFile(filename);
         return TrajectoryConfigManager.load(file);
     }
 
