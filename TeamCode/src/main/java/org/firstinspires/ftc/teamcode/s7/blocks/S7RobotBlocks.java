@@ -63,21 +63,39 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            heading = "Set Velocity Constraints",
-            tooltip = "Set maximum translational and angular velocity for generated trajectories",
-            parameterLabels = {"S7Robot", "Max Velocity", "Max Angular Velocity"}
+            heading = "Set Maximum Velocity",
+            tooltip = "Set maximum velocity for generated/loaded trajectories",
+            parameterLabels = {"S7Robot", "Max Velocity"}
     )
-    public static void setVelConstraints(S7Robot robot, double maxVel, double maxAngVel) {
-        robot.s7Drive.setVelConstraint(maxVel, maxAngVel);
+    public static void setMaxVel(S7Robot robot, double maxVel) {
+        robot.s7Drive.setMaxVel(maxVel);
     }
 
     @ExportToBlocks(
-            heading = "Set Acceleration Constraint",
-            tooltip = "Set maximum acceleration for generated trajectories",
-            parameterLabels = {"S7Robot", "Max Acceleration"}
+            heading = "Set Maximum Angular Velocity",
+            tooltip = "Set maximum angular velocity for generated/loaded trajectories",
+            parameterLabels = {"S7Robot", "Max Ang Velocity"}
     )
-    public static void setAccelConstraint(S7Robot robot, double maxAccel) {
-        robot.s7Drive.setAccelConstraint(maxAccel);
+    public static void setMaxAngVel(S7Robot robot, double maxAngVel) {
+        robot.s7Drive.setMaxAngVel(maxAngVel);
+    }
+
+    @ExportToBlocks(
+            heading = "Set Maximum Acceleration",
+            tooltip = "Set maximum acceleration for generated/loaded trajectories",
+            parameterLabels = {"S7Robot", "Max acceleration"}
+    )
+    public static void setMaxAccel(S7Robot robot, double maxAccel) {
+        robot.s7Drive.setMaxAccel(maxAccel);
+    }
+
+    @ExportToBlocks(
+            heading = "Set Maximum Angular Acceleration",
+            tooltip = "Set maximum angular acceleration for generated/loaded trajectories",
+            parameterLabels = {"S7Robot", "Max angular acceleration"}
+    )
+    public static void setMaxAngAccel(S7Robot robot, double maxAngAccel) {
+        robot.s7Drive.setMaxAngAccel(maxAngAccel);
     }
 
 

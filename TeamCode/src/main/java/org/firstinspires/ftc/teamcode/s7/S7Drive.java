@@ -6,19 +6,16 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryGenerator;
 import com.acmerobotics.roadrunner.trajectory.config.TrajectoryConfigManager;
+import com.acmerobotics.roadrunner.trajectory.config.TrajectoryGroupConfig;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
-
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
 
 import java.io.File;
 
@@ -27,37 +24,59 @@ public class S7Drive {
     public SampleMecanumDrive drive;
 
 
+    private double MAX_VEL = DriveConstants.MAX_VEL;
+    private double MAX_ANG_VEL = DriveConstants.MAX_ANG_VEL;
+    private double MAX_ACCEL = DriveConstants.MAX_ACCEL;
+    private double MAX_ANG_ACCEL = DriveConstants.MAX_ANG_ACCEL;
+    private TrajectoryGroupConfig groupConfig;
+
     private TrajectoryVelocityConstraint VEL_CONSTRAINT;
     private TrajectoryAccelerationConstraint ACCEL_CONSTRAINT;
 
 
     public S7Drive(HardwareMap hardwareMap) {
         this.drive = new SampleMecanumDrive(hardwareMap);
-        this.VEL_CONSTRAINT = drive.getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-        this.ACCEL_CONSTRAINT = drive.getAccelerationConstraint(MAX_ACCEL);
+        updateConstraints();
         this.drive.setPoseEstimate(new Pose2d(0,0,0));
     }
 
-    public S7Drive(HardwareMap hardwareMap, double maxVel, double maxAngVel, double maxAccel) {
+    public S7Drive(HardwareMap hardwareMap, double maxVel, double maxAngVel, double maxAccel, double maxAngAccel) {
         this.drive = new SampleMecanumDrive(hardwareMap);
-        this.VEL_CONSTRAINT = drive.getVelocityConstraint(maxVel, maxAngVel, TRACK_WIDTH);
-        this.ACCEL_CONSTRAINT = drive.getAccelerationConstraint(maxAccel);
+        this.MAX_VEL = maxVel; this.MAX_ANG_VEL = maxAngVel; this.MAX_ACCEL = maxAccel; this.MAX_ANG_ACCEL = maxAngAccel;
+        updateConstraints();
         this.drive.setPoseEstimate(new Pose2d(0,0,0));
     }
 
     public S7Drive(HardwareMap hardwareMap, Pose2d startPose) {
         this.drive = new SampleMecanumDrive(hardwareMap);
-        this.VEL_CONSTRAINT = drive.getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
-        this.ACCEL_CONSTRAINT = drive.getAccelerationConstraint(MAX_ACCEL);
+        updateConstraints();
         this.drive.setPoseEstimate(startPose);
     }
 
-    public S7Drive(HardwareMap hardwareMap, double maxVel, double maxAngVel, double maxAccel, Pose2d startPose) {
+    public S7Drive(HardwareMap hardwareMap, double maxVel, double maxAngVel, double maxAccel, double maxAngAccel, Pose2d startPose) {
         this.drive = new SampleMecanumDrive(hardwareMap);
-        this.VEL_CONSTRAINT = drive.getVelocityConstraint(maxVel, maxAngVel, TRACK_WIDTH);
-        this.ACCEL_CONSTRAINT = drive.getAccelerationConstraint(maxAccel);
+        this.MAX_VEL = maxVel; this.MAX_ANG_VEL = maxAngVel; this.MAX_ACCEL = maxAccel; this.MAX_ANG_ACCEL = maxAngAccel;
+        updateConstraints();
         this.drive.setPoseEstimate(startPose);
     }
+
+    private void updateConstraints() {
+        VEL_CONSTRAINT = SampleMecanumDrive.getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, DriveConstants.TRACK_WIDTH);
+        ACCEL_CONSTRAINT = SampleMecanumDrive.getAccelerationConstraint(MAX_ACCEL);
+        groupConfig = new TrajectoryGroupConfig(
+                MAX_VEL,
+                MAX_ACCEL,
+                MAX_ANG_VEL,
+                MAX_ANG_ACCEL,
+                14.0,
+                15.0,
+                TrajectoryGroupConfig.DriveType.GENERIC,
+                DriveConstants.TRACK_WIDTH,
+                0.0,
+                1.0
+        );
+    }
+
 
     //Drive controls
     public void setWeightedDrivePower(Pose2d power) {
@@ -79,17 +98,29 @@ public class S7Drive {
         return new TrajectoryBuilder(startPose, reversed, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
     }
 
-    public void setVelConstraint(double maxVel, double maxAngVel) {
-        VEL_CONSTRAINT = drive.getVelocityConstraint(maxVel, maxAngVel, TRACK_WIDTH);
+    public void setMaxVel(double maxVel) {
+        MAX_VEL = maxVel;
+        updateConstraints();
     }
 
-    public void setAccelConstraint(double maxAccel) {
-        ACCEL_CONSTRAINT = drive.getAccelerationConstraint(maxAccel);
+    public void setMaxAngVel(double maxAngVel) {
+        MAX_ANG_VEL = maxAngVel;
+        updateConstraints();
+    }
+
+    public void setMaxAccel(double maxAccel) {
+        MAX_ACCEL = maxAccel;
+        updateConstraints();
+    }
+
+    public void setMaxAngAccel(double maxAngAccel) {
+        MAX_ANG_ACCEL = maxAngAccel;
+        updateConstraints();
     }
 
     public Trajectory loadTrajectory(String filename) {
         File file = AppUtil.getInstance().getSettingsFile(filename);
-        return TrajectoryConfigManager.load(file);
+        return TrajectoryConfigManager.load(file); //TODO: Include TrajectoryGroupConfig so this isn't null
     }
 
     public Trajectory lineTo(Vector2d endPosition, boolean reversed) {
