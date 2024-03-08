@@ -120,7 +120,7 @@ public class S7Drive {
 
     public Trajectory loadTrajectory(String filename) {
         File file = AppUtil.getInstance().getSettingsFile(filename);
-        return TrajectoryConfigManager.load(file); //TODO: Include TrajectoryGroupConfig so this isn't null
+        return TrajectoryConfigManager.loadConfig(file).toTrajectory(groupConfig);
     }
 
     public Trajectory lineTo(Vector2d endPosition, boolean reversed) {
