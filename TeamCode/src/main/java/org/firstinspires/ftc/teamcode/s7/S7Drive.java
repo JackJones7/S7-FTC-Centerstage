@@ -133,7 +133,7 @@ public class S7Drive {
         Pose2d startPose = new Pose2d(config.getStartPose().getX() * -1,
                 config.getStartPose().getY(),
                 flipHeading(config.getStartPose().getHeading()));
-        double startTangent = config.getStartTangent() + Math.PI;
+        double startTangent = flipHeading(config.getStartTangent());
 
         ArrayList<Waypoint> waypoints = new ArrayList<Waypoint>();
         for (Waypoint waypoint : config.getWaypoints()) {
@@ -143,7 +143,7 @@ public class S7Drive {
             waypoints.add(new Waypoint(position, heading, tangent, waypoint.getInterpolationType()));
         }
 
-        return new TrajectoryConfig(startPose, startTangent, config.getWaypoints(), config.getResolution());
+        return new TrajectoryConfig(startPose, startTangent, waypoints, config.getResolution());
     }
 
     public Trajectory loadTrajectory(String filename, boolean redFlip) {
