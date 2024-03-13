@@ -55,11 +55,11 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
 
     @ExportToBlocks(
             heading = "Load trajectory",
-            tooltip = "Load a trajectory from a .yaml file",
-            parameterLabels = {"S7Robot", "Filename"}
+            tooltip = "Load a trajectory from a .yaml file. Set Red Flipped to true to flip for red side",
+            parameterLabels = {"S7Robot", "Filename", "Red Flipped"}
     )
-    public static Trajectory loadTrajectory(S7Robot robot, String filename) {
-        return robot.s7Drive.loadTrajectory(filename);
+    public static Trajectory loadTrajectory(S7Robot robot, String filename, boolean redFlip) {
+        return robot.s7Drive.loadTrajectory(filename, redFlip);
     }
 
     @ExportToBlocks(

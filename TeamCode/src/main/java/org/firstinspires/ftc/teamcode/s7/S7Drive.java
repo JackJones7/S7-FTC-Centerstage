@@ -146,8 +146,12 @@ public class S7Drive {
         return new TrajectoryConfig(startPose, startTangent, config.getWaypoints(), config.getResolution());
     }
 
-    public Trajectory loadTrajectory(String filename) {
+    public Trajectory loadTrajectory(String filename, boolean redFlip) {
         File file = AppUtil.getInstance().getSettingsFile(filename);
+        if (redFlip) {
+            return redFlip(TrajectoryConfigManager.loadConfig(file)).toTrajectory(groupConfig);
+        }
+
         return TrajectoryConfigManager.loadConfig(file).toTrajectory(groupConfig);
     }
 
