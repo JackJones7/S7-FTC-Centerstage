@@ -5,6 +5,8 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryGenerator;
+import com.acmerobotics.roadrunner.trajectory.config.TrajectoryConfig;
+import com.acmerobotics.roadrunner.trajectory.config.TrajectoryConfig.Waypoint;
 import com.acmerobotics.roadrunner.trajectory.config.TrajectoryConfigManager;
 import com.acmerobotics.roadrunner.trajectory.config.TrajectoryGroupConfig;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
@@ -18,6 +20,9 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class S7Drive {
 
@@ -116,6 +121,23 @@ public class S7Drive {
     public void setMaxAngAccel(double maxAngAccel) {
         MAX_ANG_ACCEL = maxAngAccel;
         updateConstraints();
+    }
+
+    public TrajectoryConfig redFlip(TrajectoryConfig config) {
+        Pose2d startPose = new Pose2d(config.getStartPose().getX() * -1,
+                config.getStartPose().getY(),
+                config.getStartPose().getHeading() + (Math.toRadians(90) - config.getStartPose().getHeading()) * 2);
+        double startTangent = config.getStartTangent() + Math.PI;
+
+        ArrayList<Waypoint> waypoints = new ArrayList<Waypoint>();
+        for (Waypoint waypoint : config.getWaypoints()) {
+            Vector2d position = new Vector2d(waypoint.getPosition().getX() * -1, waypoint.getPosition().getY());
+            double heading = waypoint.getHeading() + (Math.toRadians(90) - waypoint.getHeading()) * 2;
+            double tangent = (waypoint.getInterpolationType() == TrajectoryConfig.HeadingInterpolationType.TANGENT) ? waypoint.getTangent() : waypoint.getTangent() + Math.PI;
+            waypoints.add(new Waypoint(position, heading, tangent, waypoint.getInterpolationType()));
+        }
+
+        return new TrajectoryConfig(startPose, startTangent, config.getWaypoints(), config.getResolution());
     }
 
     public Trajectory loadTrajectory(String filename) {
