@@ -27,6 +27,7 @@ public class S7Robot {
     }
 
     public S7Drive s7Drive;
+    public S7ArmAssembly s7ArmAssembly;
     public PoseEstimateMode poseEstimateMode;
 
     private LinearOpMode opMode;
@@ -47,6 +48,10 @@ public class S7Robot {
         this.opMode = opMode;
         this.s7Drive = new S7Drive(opMode.hardwareMap, startPose);
         this.poseEstimateMode = PoseEstimateMode.KEEP;
+    }
+
+    public void initArmAssembly() {
+        s7ArmAssembly = new S7ArmAssembly(opMode.hardwareMap);
     }
 
 

@@ -125,7 +125,7 @@ public class S7Drive {
 
     private double flipHeading(double heading) {
         Vector2d inputVector = new Vector2d(Math.cos(heading), Math.sin(heading));
-        Vector2d reflectVector = new Vector2d(inputVector.getX() > 0 ? 1 : -1, 0);
+        Vector2d reflectVector = new Vector2d(0, inputVector.getY() > 0 ? 1 : -1);
         return inputVector.rotated(inputVector.angleBetween(reflectVector) * 2).angle();
     }
 
