@@ -123,17 +123,23 @@ public class S7Drive {
         updateConstraints();
     }
 
-    public TrajectoryConfig redFlip(TrajectoryConfig config) {
+    private double flipHeading(double heading) {
+        Vector2d inputVector = new Vector2d(Math.cos(heading), Math.sin(heading));
+        Vector2d reflectVector = new Vector2d(inputVector.getX() > 0 ? 1 : -1, 0);
+        return inputVector.rotated(inputVector.angleBetween(reflectVector) * 2).angle();
+    }
+
+    private TrajectoryConfig redFlip(TrajectoryConfig config) {
         Pose2d startPose = new Pose2d(config.getStartPose().getX() * -1,
                 config.getStartPose().getY(),
-                config.getStartPose().getHeading() + (Math.toRadians(90) - config.getStartPose().getHeading()) * 2);
+                flipHeading(config.getStartPose().getHeading()));
         double startTangent = config.getStartTangent() + Math.PI;
 
         ArrayList<Waypoint> waypoints = new ArrayList<Waypoint>();
         for (Waypoint waypoint : config.getWaypoints()) {
             Vector2d position = new Vector2d(waypoint.getPosition().getX() * -1, waypoint.getPosition().getY());
-            double heading = waypoint.getHeading() + (Math.toRadians(90) - waypoint.getHeading()) * 2;
-            double tangent = (waypoint.getInterpolationType() == TrajectoryConfig.HeadingInterpolationType.TANGENT) ? waypoint.getTangent() : waypoint.getTangent() + Math.PI;
+            double heading = flipHeading(waypoint.getHeading());
+            double tangent = flipHeading(waypoint.getTangent());
             waypoints.add(new Waypoint(position, heading, tangent, waypoint.getInterpolationType()));
         }
 
