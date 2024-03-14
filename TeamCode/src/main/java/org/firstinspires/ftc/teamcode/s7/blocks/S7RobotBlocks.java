@@ -250,7 +250,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     @ExportToBlocks(
             heading = "Set arm angle",
             tooltip = "Set arm angle in degrees (Use Init arm assembly first)",
-            parameterLabels = {"S7Robot, Angle"}
+            parameterLabels = {"S7Robot", "Angle"}
     )
     public static void setArmAngle(S7Robot robot, double angle) {
         robot.s7ArmAssembly.setArmAngle(angle);
@@ -268,7 +268,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     @ExportToBlocks(
             heading = "Set relative wrist angle",
             tooltip = "Set wrist angle in degrees, relative to arm angle (Use Init arm assembly first)",
-            parameterLabels = {"S7Robot, Angle"}
+            parameterLabels = {"S7Robot", "Angle"}
     )
     public static void setWristAngleRelative(S7Robot robot, double angle) {
         robot.s7ArmAssembly.setWristAngleRelative(angle);
