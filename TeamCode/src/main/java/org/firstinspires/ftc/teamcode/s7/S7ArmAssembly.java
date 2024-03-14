@@ -14,7 +14,7 @@ public class S7ArmAssembly {
     private final double WRIST_PIVOT_WEIGHT = 1.0 / 300.0;
 
     private double armPivotMinDegrees = 0;
-    private double armPivotMaxDegrees = 0;
+    private double armPivotMaxDegrees = 300;
     private double wristPivotMinDegrees = 0;
     private double wristPivotMaxDegrees = 300;
 
