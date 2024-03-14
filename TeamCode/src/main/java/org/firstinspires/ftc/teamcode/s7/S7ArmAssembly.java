@@ -62,4 +62,6 @@ public class S7ArmAssembly {
         wristPivotServo.setPosition(clamp(degrees, wristPivotMinDegrees, wristPivotMaxDegrees) * WRIST_PIVOT_WEIGHT);
     }
 
+    //TODO: Set absolute wrist angle (also while you're here don't forget to update the RC app)
+
 }

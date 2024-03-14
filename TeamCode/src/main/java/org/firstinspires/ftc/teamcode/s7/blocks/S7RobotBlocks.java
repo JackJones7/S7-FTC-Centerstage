@@ -228,6 +228,53 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
         robot.s7Drive.followTrajectory(trajectory);
     }
 
+
+    @ExportToBlocks(
+            heading = "Init arm assembly",
+            tooltip = "Initialize internal arm/claw controls",
+            parameterLabels = {"S7Robot"}
+    )
+    public static void initArmAssembly(S7Robot robot) {
+        robot.initArmAssembly();
+    }
+
+    @ExportToBlocks(
+            heading = "Set arm constraints",
+            tooltip = "Set min and max angle for arm in degrees (Use Init arm assembly first)",
+            parameterLabels = {"S7Robot", "Min degrees", "Max degrees"}
+    )
+    public static void setArmConstraints(S7Robot robot, double min, double max) {
+        robot.s7ArmAssembly.setArmConstraints(min, max);
+    }
+
+    @ExportToBlocks(
+            heading = "Set arm angle",
+            tooltip = "Set arm angle in degrees (Use Init arm assembly first)",
+            parameterLabels = {"S7Robot, Angle"}
+    )
+    public static void setArmAngle(S7Robot robot, double angle) {
+        robot.s7ArmAssembly.setArmAngle(angle);
+    }
+
+    @ExportToBlocks(
+            heading = "Set wrist constraints",
+            tooltip = "Set min and max angle for wrist in degrees (Use Init arm assembly first)",
+            parameterLabels = {"S7Robot", "Min degrees", "Max degrees"}
+    )
+    public static void setWristConstraints(S7Robot robot, double min, double max) {
+        robot.s7ArmAssembly.setWristConstraints(min, max);
+    }
+
+    @ExportToBlocks(
+            heading = "Set relative wrist angle",
+            tooltip = "Set wrist angle in degrees, relative to arm angle (Use Init arm assembly first)",
+            parameterLabels = {"S7Robot, Angle"}
+    )
+    public static void setWristAngleRelative(S7Robot robot, double angle) {
+        robot.s7ArmAssembly.setWristAngleRelative(angle);
+    }
+
+
     @ExportToBlocks(
             tooltip = "Initialize internal AprilTag processing",
             parameterLabels = {"S7Robot"}
