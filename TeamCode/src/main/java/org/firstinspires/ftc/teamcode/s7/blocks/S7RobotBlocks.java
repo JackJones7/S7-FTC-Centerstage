@@ -4,15 +4,18 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ReadWriteFile;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.s7.S7Robot;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -321,5 +324,26 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
     )
     public static Recognition findRecognitionWithLabel(S7Robot robot, String label){
         return robot.findRecognitionWithLabel(label);
+    }
+
+
+    @ExportToBlocks(
+            heading = "Write to file",
+            tooltip = "Write a number to a settings file",
+            parameterLabels = {"Filename", "Number"}
+    )
+    public static void writeToSettings(String filename, double number) {
+        File settingsFile = AppUtil.getInstance().getSettingsFile(filename);
+        ReadWriteFile.writeFile(settingsFile, String.valueOf(number));
+    }
+
+    @ExportToBlocks(
+            heading = "Read from file",
+            tooltip = "Read a number from a settings file",
+            parameterLabels = {"Filename"}
+    )
+    public static double readFromSettings(String filename) {
+        File settingsFile = AppUtil.getInstance().getSettingsFile(filename);
+        return Double.parseDouble(ReadWriteFile.readFile(settingsFile).trim());
     }
 }
