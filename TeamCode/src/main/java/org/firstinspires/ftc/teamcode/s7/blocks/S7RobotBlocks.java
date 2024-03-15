@@ -50,7 +50,7 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
             parameterLabels = {"S7Robot", "Power"}
     )
     public static void driveControl(S7Robot robot, double power) {
-        robot.s7Drive.setWeightedDrivePower(new Pose2d(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x));
+        robot.s7Drive.setWeightedDrivePower(new Pose2d(-gamepad1.left_stick_y * power, -gamepad1.left_stick_x * power, -gamepad1.right_stick_x * power));
     }
 
     @ExportToBlocks(
