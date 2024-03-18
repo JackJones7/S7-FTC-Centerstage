@@ -279,55 +279,6 @@ public class S7RobotBlocks extends BlocksOpModeCompanion {
 
 
     @ExportToBlocks(
-            tooltip = "Initialize internal AprilTag processing",
-            parameterLabels = {"S7Robot"}
-    )
-    public static void initAprilTag(S7Robot robot) {
-        robot.initAprilTag();
-    }
-
-    @ExportToBlocks(
-            tooltip = "Get current april tag detections (Must use initAprilTag first)",
-            parameterLabels = {"S7Robot"}
-    )
-    public static ArrayList<AprilTagDetection> getAprilTagDetections(S7Robot robot) {
-        return robot.getAprilTagDetections();
-    }
-
-    @ExportToBlocks(
-            tooltip = "Initialize TensorFlow object detection",
-            parameterLabels = {"S7Robot", "Minimum Confidence"}
-    )
-    public static void initTensorFlow(S7Robot robot, float minConfidence){
-        robot.initTensorFlow(minConfidence);
-    }
-
-    @ExportToBlocks(
-            tooltip = "Initialize TensorFlow object detection",
-            parameterLabels = {"S7Robot", "Minimum Confidence", "Model Asset Name"}
-    )
-    public static void initTensorFlow(S7Robot robot, float minConfidence, String model){
-        robot.initTensorFlow(minConfidence, model);
-    }
-
-    @ExportToBlocks(
-            tooltip = "Get list of objects recognized by TensorFlow",
-            parameterLabels = {"S7Robot"}
-    )
-    public static List<Recognition> getTensorFlowRecognitions(S7Robot robot) {
-        return robot.getTensorFlowRecognitions();
-    }
-
-    @ExportToBlocks(
-            tooltip = "Find a specific recognized object based on its label",
-            parameterLabels = {"S7Robot", "Label"}
-    )
-    public static Recognition findRecognitionWithLabel(S7Robot robot, String label){
-        return robot.findRecognitionWithLabel(label);
-    }
-
-
-    @ExportToBlocks(
             heading = "Write to file",
             tooltip = "Write a number to a settings file",
             parameterLabels = {"Filename", "Number"}
