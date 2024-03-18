@@ -37,6 +37,8 @@ public class S7ArmAssembly {
         clawServoRight.setDirection(Servo.Direction.REVERSE);
     }
 
+    //TODO: Add lift functionality
+
     private static double clamp(double value, double min, double max) {
         return Math.max(min, Math.min(max, value));
     }
