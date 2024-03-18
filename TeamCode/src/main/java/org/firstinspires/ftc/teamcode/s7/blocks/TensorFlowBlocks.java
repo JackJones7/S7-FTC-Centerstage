@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
@@ -46,23 +47,6 @@ public class TensorFlowBlocks {
                 .build();
 
         return vision;
-    }
-
-    @ExportToBlocks(
-            tooltip = "Look for a Tensorflow recognition with a given label",
-            heading = "Look for label",
-            parameterLabels = {"Tensorflow Processor", "Target label"}
-    )
-    public static Recognition lookForLabel(TfodProcessor tfod, String targetLabel) {
-        Recognition result;
-
-        for (Recognition recognition : tfod.getRecognitions()) {
-            if (recognition.getLabel() == targetLabel) {
-                return recognition;
-            }
-        }
-
-        return null;
     }
 
 }
