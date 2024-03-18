@@ -41,7 +41,7 @@ public class TensorFlowBlocks {
     public static VisionPortal initVisionWithTfod(TfodProcessor tfod) {
         VisionPortal vision = new VisionPortal.Builder()
                 .setCamera(BlocksOpModeCompanion.hardwareMap.get(WebcamName.class, "Webcam 1"))
-                .setCameraResolution(new Size(1080, 720))
+                .setCameraResolution(new Size(1280, 720))
                 .addProcessor(tfod)
                 .build();
 
