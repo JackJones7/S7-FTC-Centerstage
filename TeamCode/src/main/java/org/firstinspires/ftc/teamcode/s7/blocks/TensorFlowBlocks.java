@@ -49,23 +49,17 @@ public class TensorFlowBlocks {
     }
 
     @ExportToBlocks(
-            tooltip = "Halt OpMode until object with given label is found or maximum time is elapsed",
-            heading = "Stop and look for label",
-            parameterLabels = {"Tensorflow Processor", "Target label", "Max seconds"}
+            tooltip = "Look for a Tensorflow recognition with a given label",
+            heading = "Look for label",
+            parameterLabels = {"Tensorflow Processor", "Target label"}
     )
-    public static Recognition lookForLabel(TfodProcessor tfod, String targetLabel, double maxSeconds) {
+    public static Recognition lookForLabel(TfodProcessor tfod, String targetLabel) {
         Recognition result;
-        ElapsedTime lookTimer = new ElapsedTime();
-        lookTimer.reset();
 
-        while (lookTimer.time(TimeUnit.SECONDS) <= maxSeconds) {
-            for (Recognition recognition : tfod.getRecognitions()) {
-                if (recognition.getLabel() == targetLabel) {
-                    return recognition;
-                }
+        for (Recognition recognition : tfod.getRecognitions()) {
+            if (recognition.getLabel() == targetLabel) {
+                return recognition;
             }
-
-            BlocksOpModeCompanion.linearOpMode.idle();
         }
 
         return null;
