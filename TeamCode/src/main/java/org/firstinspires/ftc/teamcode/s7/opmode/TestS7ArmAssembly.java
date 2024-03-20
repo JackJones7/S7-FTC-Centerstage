@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode.s7.opmode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.s7.S7Robot;
 
 @Config
 @Autonomous (name = "TEST-S7 Arm Assembly")
+@Disabled
 public class TestS7ArmAssembly extends LinearOpMode {
 
     public static double WRIST_ANGLE = 145;
